@@ -18,8 +18,12 @@ def generate_page(
         dest_html = f.read()
         dest_html = dest_html.replace("{{ Title }}", title)
         dest_html = dest_html.replace("{{ Content }}", html)
-        dest_html = dest_html.replace('href="/', f"href={basepath}")
-        dest_html = dest_html.replace('src="/', f"src={basepath}")
+
+        finalpath = str(basepath).strip("/")
+
+        if finalpath:
+            dest_html = dest_html.replace('href="/', f'href="/{finalpath}/')
+            dest_html = dest_html.replace('src="/', f'src="/{finalpath}/')
 
     parents = dest_path.parent
     parents.mkdir(parents=True, exist_ok=True)
